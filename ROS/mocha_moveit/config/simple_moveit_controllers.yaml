@@ -1,0 +1,33 @@
+controller_list:
+  - name: arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - waist_joint
+      - lower_arm_joint
+      - upper_arm_joint
+      - wrist_joint
+      - gripper_base_joint
+  - name: gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - left_gear_joint
+  - name: mocha/arm_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - waist_joint
+      - lower_arm_joint
+      - upper_arm_joint
+      - wrist_joint
+      - gripper_base_joint
+  - name: mocha/gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - left_gear_joint

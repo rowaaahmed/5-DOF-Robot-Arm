@@ -1,0 +1,34 @@
+<launch>
+
+    <arg name="is_sim" default="false"/>
+
+
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find mocha_controller)/config/trajectory_controller.yaml" command="load"/>
+
+    <!-- Load joint controller configurations from YAML file to parameter server -->
+    <rosparam file="$(find mocha_controller)/config/joint_state_controller.yaml" command="load"/>
+
+    <param name="robot_description" command="$(find xacro)/xacro $(find mocha)/urdf/mocha.urdf.xacro"/>
+
+    <!-- If interfacing with the real Hardware -->
+    <!-- <group unless="$(arg is_sim)">
+        
+        <node pkg="mocha_controller" type="angles_converter.py" name="angles_converter" 
+            respawn="true" output="screen"/>
+
+        
+        <node name="mocha_interface_node" pkg="mocha_controller" type="mocha_interface_node" 
+            ns="/mocha" respawn="true" output="screen"/>
+    </group>
+ -->
+    <!-- Load the controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" 
+        ns="/mocha" args="joint_state_controller arm_controller gripper_controller" />
+
+    <!-- Convert joint states to TF transforms for rviz, etc -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
+        <remap from="/joint_states" to="/mocha/joint_states" />
+    </node>
+
+</launch>
