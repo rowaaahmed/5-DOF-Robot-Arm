@@ -1,5 +1,3 @@
-# 5-DOF-Robot-Arm
-
 # Contributors 
 
 Rowaa Ahmed 
